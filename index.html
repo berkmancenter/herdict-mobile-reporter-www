@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Basics -->
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+		<title>Herdict</title>
+		<!-- PhoneGap -->
+		<script type="text/javascript" src="phonegap.js"></script>
+		<!-- Jquery -->
+		<script type="text/javascript" src="resources/js/jQuery.js"></script>
+		<!-- Jquery Mobile -->
+		<link rel="stylesheet" href="resources/jQueryMobile/jQueryMobileStructure.css" />
+		<link rel="stylesheet" href="resources/jQueryMobile/herdict-theme.min.css" />
+		<script type="text/javascript" src="resources/jQueryMobile/jQueryMobile.js"></script>
+		<!-- Our JS and CSS -->
+		<script type="text/javascript" src="resources/js/engine.js"></script>
+		<link rel="stylesheet" href="resources/css/style.css" />
+	</head>
+	<body>
+
+		<!-- INDEX -->
+
+		<div id="home" data-role="page">
+			<div data-role="header">
+				<a href="#" data-external-href="http://herdict.org" target="_blank">Website</a>
+				<h1>Herdict Mobile</h1>
+				<a href="#legal" data-rel="dialog">Legal</a>
+			</div>
+			<div data-role="content">
+				<a href="#walkthrough" data-role="button" id="reportHomeLink" data-transition="flip">
+					<img src="resources/img/home/report.png" />
+					<div>Report</div>
+				</a>
+				<a href="#topsites" data-role="button" data-transition="flip" id="queryHomeLink">
+					<img src="resources/img/home/query.png" />
+					<div>View Data</div>
+				</a>
+			</div>
+		</div>
+
+		<!-- Legal -->
+
+		<div id="legal" data-role="page">
+			<div data-role="header">
+				<h1>Legal</h1>
+			</div>
+			<div data-role="content">
+				<a href="#" data-external-href="http://www.herdict.org/about/31" data-role="button" target="_blank">Terms of Service</a>
+				<a href="#" data-external-href="http://www.herdict.org/about/22" data-role="button" target="_blank">Privacy Policy</a>
+			</div>
+		</div>
+
+		<!-- REPORT -->
+
+		<div id="report" data-role="page">
+			<div data-role="header">
+				<a href="#home" data-icon="home" data-transition="flip" data-iconpos="notext"></a>
+				<h1>Herdict Reporter</h1>
+				<a href="#" data-icon="star" id="randomButton" onclick="toggleRandom()" data-iconpos="notext"></a>
+			</div>
+			<div data-role="content">
+				<a href="#listSelect" id="queueNotice" data-rel="dialog" data-transition="slidedown">You are currently evaluating websites from <span id="whichList"></span>'s list. Click here to change that.</a>
+				<div id="urlFieldContain">
+					<input id="urlField" placeholder="URL" type="url"/>
+					<a href="#" onclick="openUpLink()" data-role="button" data-iconpos="left" data-theme="a" data-icon="arrow-r" id="iframeLink"></a>
+				</div>
+				<a href="#" class="accessSubmit" id="accessibleButton" onclick="queueUp(true)" data-role="button">Accessible</a> 
+				<a href="#" class="accessSubmit" id="inaccessibleButton" onclick="queueUp(false)" data-role="button">Inaccessible</a> 
+				<div id="reported">
+					<div id="reportedTitle"><span id="numberReported">0</span> Sites Recently Reported</div>
+					<div id="reportedContent"></div>
+				</div>
+				<div id="otherOptionsNote">Scroll down for more options</div>
+				<div id="otherOptions">
+					<div data-role="collapsible" data-theme="a" onclick="scrollToBottom()" data-content-theme="a">
+						<h3 id="locationHeader">Location</h3>
+						<p>
+							<div data-role="fieldcontain">
+								<select id="countriesField">
+									<option value="">Select Country</option>
+								</select>
+							</div>
+							<div data-role="fieldcontain">
+								<select id="locationsField">
+									<option value="">Select Location</option>
+								</select>
+							</div>
+							<div data-role="fieldcontain">
+								<label for="ispField">ISP</label>
+								<input id="ispField" placeholder="ISP" data-theme="c" type="text" />
+							</div>
+						</p>
+						<script type="text/javascript">
+							
+						</script>
+					</div>
+					<div data-role="collapsible" data-theme="a" onclick="scrollToBottom()" data-content-theme="a">
+						<h3>Other</h3>
+						<div data-role="fieldcontain">
+							<select id="categoriesField">
+								<option value="">Select Category</option>
+							</select>
+						</div>
+						<div data-role="fieldcontain">
+							<select id="interestsField">
+								<option value="">Select Interest</option>
+							</select>
+						</div>
+						<div data-role="fieldcontain">
+							<select id="reasonsField">
+								<option value="">Select Reason</option>
+							</select>
+						</div>
+						<input id="commentField" data-theme="c" maxlength="255" placeholder="Comments" type="text"/>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- LIST SELECT -->
+
+		<div id="listSelect" data-role="page" data-theme="c">
+			<div data-role="header">
+				<h1>Select List</h1>
+			</div>
+			<div data-role="content">
+				<ul id="listSelectList" data-role="listview">
+				</ul>
+			</div>
+		</div>
+
+		<!-- WALKTHROUGH -->
+
+		<div id="walkthrough" data-role="page">
+			<div data-role="header">
+				<h1>Walkthrough</h1>
+			</div>
+			<div data-role="content">
+				<div id="walkthroughWrapper">
+					<h1>Load a URL</h1>
+					<div>Simply type in a URL into the addressbar</div>
+					<img src="resources/img/walkthrough/addressBar.png" />
+					<div>...or enable random mode</div>
+					<img src="resources/img/walkthrough/random.png" />
+					<h1>Check out the site</h1>
+					<div>A browser will appear showing you the website</div>
+					<img src="resources/img/walkthrough/childBrowser.png" />
+					<div>When you are done discerning whether the site is accessible, simply hit 'done' on the bottom left</div>
+					<h1>Report Back</h1>
+					<div>Once you have tapped done, the app will return to the form. Fill it out with any details you want to share and then select 'accessible' or 'inaccessible' to submit. Thanks!</div>
+					<a href="#report" data-role="button" data-transition="flip" data-theme="b">Ok</a>
+					<a href="#report" data-role="button" data-transition="flip" id="neverShowWalkthrough" data-theme="b">Don't show this again</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- VIEW -->
+
+		<div id="view" data-role="page">
+			<div data-role="header">
+				<a href="#home" data-icon="home" data-transition="flip" data-iconpos="notext"></a>
+				<h1>Herdometer</h1>
+			</div>
+			<div data-role="content">
+				<div id="urlCheckFieldContain">
+					<input id="urlCheckField" placeholder="URL" type="url"/>
+					<a href="#" onclick="checkLink()" data-role="button" data-iconpos="left" data-theme="a" data-icon="arrow-r" id="checkLink"></a>
+					<script type="text/javascript">
+						$("#urlCheckField").on("change", checkLink);
+					</script>
+				</div>
+				<div id="herdometer">
+					<div>
+						<img src="resources/img/herdometer/1.png" /> Accessible Everywhere
+					</div>
+					<div>
+						<img src="resources/img/herdometer/2.png" /> Inaccessible in other countries
+					</div>
+					<div>
+						<img src="resources/img/herdometer/3.png" /> Inaccessible in your country
+					</div>
+				</div>
+				<div id="herdometerData">
+					<span id="globalCount"></span> report(s) of <span class="herdometerSite"></span> being inaccessible globally. <br /><br /><span id="localCount"></span> report(s) of <span class="herdometerSite"></span> being inaccessible in your country.
+				</div>
+			</div>
+		</div>
+
+		<!-- ERROR -->
+
+		<div id="error" data-role="page">
+			<div data-role="header">
+				<h1>Whoops!</h1>
+			</div>
+			<div data-role="content">
+				<div id="errorPage">
+					Sorry, but you need to be able to access herdict.org to get information on sites.
+					<a href="#home" data-role="button">Ok</a> 
+				</div>
+			</div>
+		</div>
+
+		<!-- TOP SITES -->
+
+		<div id="topsites" data-role="page">
+			<div data-role="header">
+				<a href="#home" data-icon="home" data-transition="flip" data-iconpos="notext"></a>
+				<h1>Top Sites</h1>
+				<a href="#view" data-transition="flip">Lookup</a>
+			</div>
+			<div data-role="content">
+				<div id="topsitesContent">
+
+				</div>
+				<a href="#view" data-role="button" data-transition="flip">Site Lookup</a>
+			</div>
+		</div>
+	</body>
+</html>
